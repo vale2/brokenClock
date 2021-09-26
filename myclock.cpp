@@ -1,6 +1,6 @@
-//#include"sdlutils.cpp"
+#include"sdlutils.cpp"
 //#include<ctime.h>
-#include"x11utils.cpp"
+//#include"x11utils.cpp"
 
 #include<time.h>
 
