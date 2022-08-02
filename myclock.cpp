@@ -36,9 +36,6 @@ void drawSym(SDL_Surface*screen,int x1,int y1,int x2,int y2,char sym){
         }
     
     }
-    
-    
-    
 }
 void drawStr(SDL_Surface*screen,char*str){
     fade(screen,255);
@@ -46,10 +43,7 @@ void drawStr(SDL_Surface*screen,char*str){
     for(i=0;i<4;i++){
         drawSym(screen,i*screen->w*8/10/4 +screen->w/10,screen->h/10,(i+0.8)*screen->w*8/10/4 +screen->w/10,screen->h*9/10,str[i]);
     }
-
-        SDL_Flip( screen ); 
-
-
+    SDL_Flip( screen ); 
 }
 int makeError(int a){
     int e;
@@ -58,12 +52,15 @@ int makeError(int a){
     return a ^ bits[e];
 }
 int inFont(int a){
-    for(int i=0;i<10;i++)
-        if(font[i]==a)
+    for(int i=0;i<10;i++){
+        if(font[i]==a){
             return 1;
-    
+        }
+    }
+         
     return 0;
 }
+
 void makeError(char*a,char*b){
     int i,c,ce,j,co;
     int rnd[7];
@@ -73,12 +70,13 @@ void makeError(char*a,char*b){
         int t;
         t=0;
        while(1){
-            if(t<10)
+            if(t<10){
                 ce=makeError(c);
-            else if(t<17){
+            }else if(t<17){
                 if(t==10){
-                    for(j=0;j<7;j++)
+                    for(j=0;j<7;j++){
                         rnd[j]=j;
+                    }
                     for(j=0;j<7;j++){
                         int t,jj;
                         jj=rand()%7;
@@ -87,36 +85,32 @@ void makeError(char*a,char*b){
                         rnd[jj]=t;
                     }
                     printf("RND:\n");
-                    for(j=0;j<7;j++)
+                    for(j=0;j<7;j++){
                         printf("%d ",rnd[j]);
-                       
+                    }   
                     printf("\n");
-                    
                 }
                 ce=c^bits[rnd[t-10]];
-            
             }else{
                 ce=c;
                 break;
             }
             t++;
             printf("c=%d ce=%d\n",c,ce);
-            if(c==ce)
+            if(c==ce){
                 continue;
+            }
             if(inFont(ce)){
                 printf("ce in font\n");
                 continue;
             }
-            co=0;
-            
+            co=0;            
             for(j=0;j<7;j++){
                 if((c!=(ce^bits[j])) && inFont(ce^bits[j])){
                     printf("ce xor %d in font(c=%d cee=%d)\n",bits[j],c,ce^bits[j]);
                     co=1;
                     break;
                 }
-                    
-            
             }
             if(co){
                 continue;
@@ -124,11 +118,8 @@ void makeError(char*a,char*b){
             break;
         }
         printf(" %d\n",ce);
-        
         *b=ce;
     }
-
-
 }        
 
 int main(int aa,char*ab[]){
